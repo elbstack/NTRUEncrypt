@@ -1,0 +1,18 @@
+version: '3'
+services:
+  debian:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    tty: true
+    volumes:
+      - projectroot:/root/NTRUEncrypt
+
+volumes:
+  projectroot:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${VOLUME_PATH}
+

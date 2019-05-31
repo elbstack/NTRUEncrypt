@@ -33,6 +33,11 @@ you can check if you have everything installed correctly by
 
     $ gcc sample_NTRUEncrypt.c -lntruencrypt -I /usr/local/include/libntruencrypt/
 
+Static linking
+
+    $ cd sample
+    $ gcc -static sample_NTRUEncrypt.c -lntruencrypt -I /usr/local/include/libntruencrypt/ -o ntruTest
+
 
 ---------------------
 If you got the source from git, run 
