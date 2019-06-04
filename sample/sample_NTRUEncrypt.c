@@ -23,6 +23,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "ntru_crypto.h"
+#include "sodium.h"
+
 
 /* entropy function
  *
@@ -35,18 +37,20 @@
  * Returns 1 for success, 0 for failure.
  */
 
+
 static uint8_t
 get_entropy(
     ENTROPY_CMD  cmd,
     uint8_t     *out)
 {
+    printf("start get_entropy.\n");
+
     /* 2k/8 bytes of entropy are needed to instantiate a DRBG with a
      * security strength of k bits. Here k = 112.
      */
-    static uint8_t seed[28] = {
-        'P','l','e','a','s','e',' ','u','s','e',' ','a',' ',
-        'd','i','f','f','e','r','e','n','t',' ','s','e','e','d','!'
-    };
+    static uint8_t seed[28];
+    randombytes_buf(seed, 28);
+
     static size_t index;
 
     if (cmd == INIT) {
@@ -119,8 +123,10 @@ DumpHex(
  *   5) decrypt the 128-bit AES key
  */
 int
-main(void)
+main(int argc,char* argv[])
 {
+
+    int counter;
     uint8_t public_key[557];          /* sized for EES401EP2 */
     uint16_t public_key_len;          /* no. of octets in public key */
     uint8_t private_key[607];         /* sized for EES401EP2 */
@@ -140,27 +146,78 @@ main(void)
     bool error = FALSE;               /* records if error occurred */
     FILE *Handle=NULL;                /* File Handle for writing NTRU key to file */
 
+
+    if(argc < 2)
+    {
+        printf(
+                "\nYou have to pass:\n"
+                "- command (genkeypair|encrypt|decrypt)\n"
+                "- optional: value to encrypt or decrypt\n"
+                "- optional: value of priv or pub key\n"
+                "as arguments."
+        );
+
+        printf(
+                "\nExamples:\n"
+                "%s genkeypair\n",
+                "%s encrypt 920933920293 <pubkey>\n",
+                "%s decrypt <encrypted> <privkey>\n",
+                argv[0]
+        );
+
+        exit(0);
+    }
+
+    // #################################### #################################### ####################################
+
     /* Instantiate a DRBG with 112-bit security strength for key generation
-     * to match the security strength of the EES401EP2 parameter set.
-     * Here we've chosen to use the personalization string.
-     */
+    * to match the security strength of the EES401EP2 parameter set.
+    * Here we've chosen to use the personalization string.
+    */
     rc = ntru_crypto_drbg_instantiate(112, pers_str, sizeof(pers_str),
                                       (ENTROPY_FN) &get_entropy, &drbg);
-    if (rc != DRBG_OK)
+    if (rc != DRBG_OK) {
         /* An error occurred during DRBG instantiation. */
         goto error;
-    printf("DRBG at 112-bit security for key generation instantiated "
-            "successfully.\n");
+    }
+    printf("DRBG at 112-bit security for key generation instantiated successfully.\n");
+
+
+   // #################################### #################################### ####################################
+
+    char *command = NULL;
+    command = argv[1];
+    if (strcmp(command, "genkeypair") != 0 && strcmp(command, "encrypt") != 0 && strcmp(command, "decrypt") != 0) {
+        printf("Cannot execute unknown command %s\n", command);
+        exit(1);
+    }
+
+    printf("Command %s\n", command);
+    if (argc == 2 && strcmp(command, "genkeypair") == 0) {
+
+    }
+
+    if (argc == 4 && strcmp(command, "encrypt") == 0) {
+        char *valueToEncrypt = argv[2];
+        char *key = argv[3];
+    }
+
+    if (argc == 4 && strcmp(command, "decrypt") == 0) {
+        char *valueToEncrypt = argv[2];
+        char *key = argv[3];
+    }
+
+    // #################################### #################################### ####################################
 
 
     /* Let's find out how large a buffer we need for the public and private
      * keys.
      */
-    rc = ntru_crypto_ntru_encrypt_keygen(drbg, NTRU_EES401EP2, &public_key_len,
-                                         NULL, &private_key_len, NULL);
-    if (rc != NTRU_OK)
+    rc = ntru_crypto_ntru_encrypt_keygen(drbg, NTRU_EES401EP2, &public_key_len, NULL, &private_key_len, NULL);
+    if (rc != NTRU_OK) {
         /* An error occurred requesting the buffer sizes needed. */
         goto error;
+    }
     printf("Public-key buffer size required: %d octets.\n", public_key_len);
     printf("Private-key buffer size required: %d octets.\n", private_key_len);
 
@@ -177,15 +234,16 @@ main(void)
      * We've already done this by getting the sizes from the previous call
      * to ntru_crypto_ntru_encrypt_keygen() above.
      */
-    expected_private_key_len=private_key_len;
+    expected_private_key_len = private_key_len;
     rc = ntru_crypto_ntru_encrypt_keygen(drbg, NTRU_EES401EP2, &public_key_len,
                                          public_key, &private_key_len,
                                          private_key);
-    if (rc != NTRU_OK)
+    if (rc != NTRU_OK) {
         /* An error occurred during key generation. */
         error = TRUE;
-    if (expected_private_key_len!=private_key_len)
-    {
+    }
+
+    if (expected_private_key_len != private_key_len) {
       fprintf(stderr,"private-key-length is different than expected\n");
       error = TRUE;
     }
@@ -194,32 +252,32 @@ main(void)
 
     /* Uninstantiate the DRBG. */
     rc = ntru_crypto_drbg_uninstantiate(drbg);
-    if ((rc != DRBG_OK) || error)
+    if ((rc != DRBG_OK) || error) {
         /* An error occurred uninstantiating the DRBG, or generating keys. */
         goto error;
+    }
     printf("Key-generation DRBG uninstantiated successfully.\n");
 
 
-    /* !!! TODO Dump the private key to the screen */
-    /* !!! TODO Dump the public key to the screen */
-    /* ntru_crypto_ntru_encrypt_key_dump_privkey(params,public_key,private_key,0,NULL); */
-
-
-    /* Writing both private key and public key to files */  
-    Handle=fopen("sample-ntru-key.raw","wb");
-    if(Handle!=NULL)
-    {
-      printf("Writing private key to ntru-key.raw\n");
+    /* Writing both private key and public key to files
+     * And the tmpFilenames by patter to stdout to parse it by caller.
+     */
+    char *privKeyTmpName;
+    privKeyTmpName = tmpnam(NULL);
+    Handle = fopen(privKeyTmpName,"wb");
+    if( Handle != NULL ) {
+      printf("###privkeyfilename###%s###\n", privKeyTmpName);
       fwrite(private_key,private_key_len,1,Handle);
       fclose(Handle);
     }
 
-    Handle=fopen("sample-ntru-pubkey.raw","wb");
-    if(Handle!=NULL)
-    {
-      printf("Writing public key to ntru-pubkey.raw\n");
-      fwrite(public_key,public_key_len,1,Handle);
-      fclose(Handle);
+    char *pubKeyTmpName;
+    pubKeyTmpName = tmpnam(NULL);
+    Handle=fopen(pubKeyTmpName,"wb");
+    if(Handle!=NULL) {
+        printf("###pubkeyfilename###%s###\n", privKeyTmpName);
+        fwrite(public_key,public_key_len,1,Handle);
+        fclose(Handle);
     }
 
     /* Let's find out how large a buffer we need for holding a DER-encoding
@@ -269,8 +327,6 @@ main(void)
       fwrite(encoded_public_key,encoded_public_key_len,1,Handle);
       fclose(Handle);
     }
-
-
 
     /* Now suppose we are parsing a certificate so we can use the
      * public key it contains, and the next field is the SubjectPublicKeyInfo
