@@ -14,11 +14,11 @@
  * You can copy, modify, distribute and perform the work, even for commercial
  * purposes, all without asking permission. You should have received a copy of
  * the creative commons license (CC0 1.0 universal) along with this program.
- * See the license file for more information. 
+ * See the license file for more information.
  *
  *
  *********************************************************************************/
- 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -275,7 +275,7 @@ main(int argc,char* argv[])
     pubKeyTmpName = tmpnam(NULL);
     Handle=fopen(pubKeyTmpName,"wb");
     if(Handle!=NULL) {
-        printf("###pubkeyfilename###%s###\n", privKeyTmpName);
+        printf("###pubkeyfilename###%s###\n", pubKeyTmpName);
         fwrite(public_key,public_key_len,1,Handle);
         fclose(Handle);
     }
