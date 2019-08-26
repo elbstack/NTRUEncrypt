@@ -24,6 +24,7 @@
 #include <string.h>
 #include "ntru_crypto.h"
 #include "sodium.h"
+#include "ntru.h"
 
 
 /* entropy function
@@ -162,6 +163,7 @@ main(int argc,char* argv[])
 
         printf(
                 "\nExamples:\n"
+                "%s genpubfrompriv\n",
                 "%s genkeypair\n",
                 "%s encrypt 920933920293 <pubkey>\n",
                 "%s decrypt <encrypted> <privkey>\n",
@@ -174,9 +176,28 @@ main(int argc,char* argv[])
     // #################################### #################################### ####################################
 
     char *command = argv[1];
-    if (strcmp(command, "genkeypair") != 0 && strcmp(command, "encrypt") != 0 && strcmp(command, "decrypt") != 0) {
+    if (
+            strcmp(command, "genpubfrompriv") != 0
+            && strcmp(command, "genkeypair") != 0
+            && strcmp(command, "encrypt") != 0
+            && strcmp(command, "decrypt") != 0
+    ) {
         printf("Cannot execute unknown command %s\n", command);
         exit(1);
+    }
+
+
+    // #################################### #################################### ####################################
+    // #################################### Generate Keypairs ####################################
+    // #################################### #################################### ####################################
+    if (argc == 2 && strcmp(command, "genpubfrompriv") == 0) {
+        struct NtruEncParams params = NTRU_DEFAULT_PARAMS_112_BITS;
+        NtruEncKeyPair kp;
+        NtruRandContext rand_ctx_def;
+        NtruEncPubKey pub2;
+        if (ntru_gen_pub(&params, &kp.priv, &pub2, &rand_ctx_def) != DRBG_OK) {
+            printf("pub key generation fail\n");
+        }
     }
 
     // #################################### #################################### ####################################

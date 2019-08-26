@@ -33,10 +33,10 @@ you can check if you have everything installed correctly by
 
     $ gcc sample_NTRUEncrypt.c -lntruencrypt -I /usr/local/include/libntruencrypt/
 
-Static linking
+Static linking (USE THIS!)
 
     $ cd sample
-    $ gcc -static sample_NTRUEncrypt.c -lntruencrypt -I /usr/local/include/libntruencrypt/ -o ntruTest
+    $ gcc -static ntruCmdHandler -lntruencrypt -I /usr/local/include/libntruencrypt/ -lsodium -I /usr/local/include/sodium -lpthread -I /usr/include/libntru -o ntruCmdHandler
 
 
 ---------------------
