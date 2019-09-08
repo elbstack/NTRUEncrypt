@@ -4,6 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    working_dir: /root/NTRUEncrypt
     tty: true
     volumes:
       - projectroot:/root/NTRUEncrypt

@@ -35,8 +35,13 @@ you can check if you have everything installed correctly by
 
 Static linking (USE THIS!)
 
+    $ cd lib/libntrue
+    $ make install
+    $ cd ..
+    $ cd lib/libsodium-stable
+    $ make install
     $ cd sample
-    $ gcc -static ntruCmdHandler -lntruencrypt -I /usr/local/include/libntruencrypt/ -lsodium -I /usr/local/include/sodium -lpthread -I /usr/include/libntru -o ntruCmdHandler
+    $ gcc -static ntruCmdHandler.c -lntruencrypt -I /usr/local/include/libntruencrypt/ -lsodium -I /usr/local/include/sodium -lpthread -I /usr/include/libntru -o ntruCmdHandler
 
 
 ---------------------

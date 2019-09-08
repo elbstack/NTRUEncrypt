@@ -14,17 +14,17 @@
  * You can copy, modify, distribute and perform the work, even for commercial
  * purposes, all without asking permission. You should have received a copy of
  * the creative commons license (CC0 1.0 universal) along with this program.
- * See the license file for more information. 
+ * See the license file for more information.
  *
  *
  *********************************************************************************/
- 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "ntru_crypto.h"
 #include "sodium.h"
-#include "ntru.h"
+// #include "ntru.h"
 
 
 /* entropy function
@@ -190,15 +190,15 @@ main(int argc,char* argv[])
     // #################################### #################################### ####################################
     // #################################### Generate Keypairs ####################################
     // #################################### #################################### ####################################
-    if (argc == 2 && strcmp(command, "genpubfrompriv") == 0) {
-        struct NtruEncParams params = NTRU_DEFAULT_PARAMS_112_BITS;
-        NtruEncKeyPair kp;
-        NtruRandContext rand_ctx_def;
-        NtruEncPubKey pub2;
-        if (ntru_gen_pub(&params, &kp.priv, &pub2, &rand_ctx_def) != DRBG_OK) {
-            printf("pub key generation fail\n");
-        }
-    }
+//    if (argc == 2 && strcmp(command, "genpubfrompriv") == 0) {
+//        struct NtruEncParams params = NTRU_DEFAULT_PARAMS_112_BITS;
+//        NtruEncKeyPair kp;
+//        NtruRandContext rand_ctx_def;
+//        NtruEncPubKey pub2;
+//        if (ntru_gen_pub(&params, &kp.priv, &pub2, &rand_ctx_def) != DRBG_OK) {
+//            printf("pub key generation fail\n");
+//        }
+//    }
 
     // #################################### #################################### ####################################
     // #################################### Generate Keypairs ####################################
