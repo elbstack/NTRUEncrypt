@@ -92,6 +92,13 @@ static uint8_t const pers_str[] = {
     'e', 'l', 'b', 's', 't', 'a', 'c', 'k', ' ', 'r', 'u', 'l', 'e', 's', '!'
 };
 
+static size_t count_utf8_code_points(const char *s) {
+    size_t count = 0;
+    while (*s) {
+        count += (*s++ & 0xC0) != 0x80;
+    }
+    return count;
+}
 
 /* AES-128 key to be encrypted. */
 static uint8_t const aes_key[] = {
@@ -141,7 +148,7 @@ main(int argc,char* argv[])
     uint16_t encoded_public_key_len;  /* no. of octets in encoded public key */
     uint8_t ciphertext[552];          /* sized fof EES401EP2 */
     uint16_t ciphertext_len;          /* no. of octets in ciphertext */
-    uint8_t plaintext[16];            /* size of AES-128 key */
+    uint8_t plaintext[255];            /* size of AES-128 key */
     uint16_t plaintext_len;           /* no. of octets in plaintext */
     uint8_t *next = NULL;             /* points to next cert field to parse */
     uint32_t next_len;                /* no. of octets it next */
@@ -335,7 +342,7 @@ main(int argc,char* argv[])
          * First let's find out how large a buffer we need for holding the
          * ciphertext.
          */
-        rc = ntru_crypto_ntru_encrypt(drbg, public_key_len, public_key, sizeof(valueToEncrypt), valueToEncrypt, &ciphertext_len, NULL);
+        rc = ntru_crypto_ntru_encrypt(drbg, public_key_len, public_key, count_utf8_code_points(valueToEncrypt), valueToEncrypt, &ciphertext_len, NULL);
         if (rc != NTRU_OK) {
             /* An error occurred requesting the buffer size needed. */
             goto error;
@@ -345,6 +352,10 @@ main(int argc,char* argv[])
             printf("Ciphertext buffer size required: %d octets.\n", ciphertext_len);
 
 
+        if (debug)
+            printf("Value to encrypt size: %d.\n", count_utf8_code_points(valueToEncrypt));
+
+
         /* Encrypt the value
          * We must set the ciphertext length to the size of the buffer we have
          * for the ciphertext.
@@ -352,7 +363,7 @@ main(int argc,char* argv[])
          * to ntru_crypto_ntru_encrypt() above.
          */
         rc = ntru_crypto_ntru_encrypt(drbg, public_key_len, public_key,
-                                      sizeof(valueToEncrypt), valueToEncrypt, &ciphertext_len,
+                                      count_utf8_code_points(valueToEncrypt), valueToEncrypt, &ciphertext_len,
                                       ciphertext);
         if (rc != NTRU_OK) {
             /* An error occurred encrypting the value */
@@ -440,7 +451,7 @@ main(int argc,char* argv[])
          * already have a plaintext buffer as a local variable, we'll just
          * supply the length of that plaintext buffer for decryption.
          */
-        plaintext_len = sizeof(plaintext);
+        // plaintext_len = sizeof(plaintext);
         rc = ntru_crypto_ntru_decrypt(private_key_len, private_key, ciphertext_len,
                                       ciphertext, &plaintext_len, plaintext);
         if (rc != NTRU_OK) {

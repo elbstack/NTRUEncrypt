@@ -1,3 +1,10 @@
+Starting Docker
+===============
+
+export VOLUME_PATH=`pwd`
+docker-compose up --build
+docker exec -it ntruencrypt_debian_1 bash
+
 Installation Instructions
 =========================
 
@@ -35,10 +42,12 @@ you can check if you have everything installed correctly by
 
 Static linking (USE THIS!)
 
-    $ cd lib/libntrue
+    $ cd lib/libntru
     $ make install
     $ cd ..
     $ cd lib/libsodium-stable
+    $ make install
+    $ cd ../../
     $ make install
     $ cd sample
     $ gcc -static ntruCmdHandler.c -lntruencrypt -I /usr/local/include/libntruencrypt/ -lsodium -I /usr/local/include/sodium -lpthread -I /usr/include/libntru -o ntruCmdHandler

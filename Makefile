@@ -90,8 +90,8 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = x86_64-pc-linux-gnu
 host_triplet = x86_64-pc-linux-gnu
-noinst_PROGRAMS = bin/sanity$(EXEEXT) bin/bench$(EXEEXT) \
-	bin/sample_NTRUEncrypt$(EXEEXT)
+noinst_PROGRAMS = bin/sanity$(EXEEXT) bin/bench$(EXEEXT)
+# 	bin/sample_NTRUEncrypt$(EXEEXT)
 check_PROGRAMS = $(am__EXEEXT_1) $(am__EXEEXT_2)
 #am__append_1 = \
 #	src/ntru_crypto_ntru_mult_indices_simd.c \
@@ -194,7 +194,7 @@ libntruencrypt_la_OBJECTS = $(am_libntruencrypt_la_OBJECTS)
 AM_V_lt = $(am__v_lt_$(V))
 am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
 am__v_lt_0 = --silent
-am__v_lt_1 = 
+am__v_lt_1 =
 libntruencrypt_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
 	$(libntruencrypt_la_CFLAGS) $(CFLAGS) \
@@ -277,10 +277,10 @@ bin_check_public_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
 	$(bin_check_public_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
 	-o $@
-am_bin_sample_NTRUEncrypt_OBJECTS =  \
-	sample/sample_NTRUEncrypt.$(OBJEXT)
-bin_sample_NTRUEncrypt_OBJECTS = $(am_bin_sample_NTRUEncrypt_OBJECTS)
-bin_sample_NTRUEncrypt_DEPENDENCIES = libntruencrypt.la
+# am_bin_sample_NTRUEncrypt_OBJECTS =  \
+# 	sample/sample_NTRUEncrypt.$(OBJEXT)
+# bin_sample_NTRUEncrypt_OBJECTS = $(am_bin_sample_NTRUEncrypt_OBJECTS)
+# bin_sample_NTRUEncrypt_DEPENDENCIES = libntruencrypt.la
 am_bin_sanity_OBJECTS = test/sanity.$(OBJEXT)
 bin_sanity_OBJECTS = $(am_bin_sanity_OBJECTS)
 bin_sanity_DEPENDENCIES = $(top_builddir)/libntruencrypt.la \
@@ -292,11 +292,11 @@ am__v_P_1 = :
 AM_V_GEN = $(am__v_GEN_$(V))
 am__v_GEN_ = $(am__v_GEN_$(AM_DEFAULT_VERBOSITY))
 am__v_GEN_0 = @echo "  GEN     " $@;
-am__v_GEN_1 = 
+am__v_GEN_1 =
 AM_V_at = $(am__v_at_$(V))
 am__v_at_ = $(am__v_at_$(AM_DEFAULT_VERBOSITY))
 am__v_at_0 = @
-am__v_at_1 = 
+am__v_at_1 =
 DEFAULT_INCLUDES = -I.
 depcomp = $(SHELL) $(top_srcdir)/config/depcomp
 am__depfiles_maybe = depfiles
@@ -310,7 +310,7 @@ LTCOMPILE = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
 AM_V_CC = $(am__v_CC_$(V))
 am__v_CC_ = $(am__v_CC_$(AM_DEFAULT_VERBOSITY))
 am__v_CC_0 = @echo "  CC      " $@;
-am__v_CC_1 = 
+am__v_CC_1 =
 CCLD = $(CC)
 LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
@@ -318,17 +318,17 @@ LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
 AM_V_CCLD = $(am__v_CCLD_$(V))
 am__v_CCLD_ = $(am__v_CCLD_$(AM_DEFAULT_VERBOSITY))
 am__v_CCLD_0 = @echo "  CCLD    " $@;
-am__v_CCLD_1 = 
+am__v_CCLD_1 =
 SOURCES = $(libntruencrypt_la_SOURCES) \
 	$(libntruencrypt_check_la_SOURCES) $(libntrutests_la_SOURCES) \
 	$(bin_bench_SOURCES) $(bin_check_internal_SOURCES) \
-	$(bin_check_public_SOURCES) $(bin_sample_NTRUEncrypt_SOURCES) \
+# 	$(bin_check_public_SOURCES) $(bin_sample_NTRUEncrypt_SOURCES) \
 	$(bin_sanity_SOURCES)
 DIST_SOURCES = $(am__libntruencrypt_la_SOURCES_DIST) \
 	$(am__libntruencrypt_check_la_SOURCES_DIST) \
 	$(am__libntrutests_la_SOURCES_DIST) $(bin_bench_SOURCES) \
-	$(bin_check_internal_SOURCES) $(bin_check_public_SOURCES) \
-	$(bin_sample_NTRUEncrypt_SOURCES) $(bin_sanity_SOURCES)
+	$(bin_check_internal_SOURCES) $(bin_check_public_SOURCES)
+# 	$(bin_sample_NTRUEncrypt_SOURCES) $(bin_sanity_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -569,21 +569,21 @@ AWK = mawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
 CFLAGS = -g -O2
-CHECK_CFLAGS = 
-CHECK_LIBS = 
+CHECK_CFLAGS =
+CHECK_LIBS =
 CPP = gcc -E
-CPPFLAGS = 
+CPPFLAGS =
 CYGPATH_W = echo
 DEFS = -DHAVE_CONFIG_H
 DEPDIR = .deps
 DLLTOOL = false
-DSYMUTIL = 
-DUMPBIN = 
-ECHO_C = 
+DSYMUTIL =
+DUMPBIN =
+ECHO_C =
 ECHO_N = -n
-ECHO_T = 
+ECHO_T =
 EGREP = /bin/grep -E
-EXEEXT = 
+EXEEXT =
 FGREP = /bin/grep -F
 GREP = /bin/grep
 INSTALL = /usr/bin/install -c
@@ -592,38 +592,38 @@ INSTALL_PROGRAM = ${INSTALL}
 INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
 LD = /usr/bin/ld -m elf_x86_64
-LDFLAGS = 
+LDFLAGS =
 LIBNTRUENCRYPT_SO_VERSION = 1:0:1
-LIBOBJS = 
-LIBS = 
+LIBOBJS =
+LIBS =
 LIBTOOL = $(SHELL) $(top_builddir)/libtool
-LIPO = 
+LIPO =
 LN_S = ln -s
-LTLIBOBJS = 
-LT_SYS_LIBRARY_PATH = 
+LTLIBOBJS =
+LT_SYS_LIBRARY_PATH =
 MAKEINFO = ${SHELL} /root/NTRUEncrypt/config/missing makeinfo
 MANIFEST_TOOL = :
 MKDIR_P = /bin/mkdir -p
 NM = /usr/bin/nm -B
-NMEDIT = 
+NMEDIT =
 OBJDUMP = objdump
 OBJEXT = o
-OTOOL = 
-OTOOL64 = 
+OTOOL =
+OTOOL64 =
 PACKAGE = libntruencrypt
-PACKAGE_BUGREPORT = 
+PACKAGE_BUGREPORT =
 PACKAGE_NAME = libntruencrypt
 PACKAGE_STRING = libntruencrypt 1.1.0
 PACKAGE_TARNAME = libntruencrypt
-PACKAGE_URL = 
+PACKAGE_URL =
 PACKAGE_VERSION = 1.1.0
 PATH_SEPARATOR = :
 PKG_CONFIG = /usr/bin/pkg-config
-PKG_CONFIG_LIBDIR = 
-PKG_CONFIG_PATH = 
+PKG_CONFIG_LIBDIR =
+PKG_CONFIG_PATH =
 RANLIB = ranlib
 SED = /bin/sed
-SET_MAKE = 
+SET_MAKE =
 SHELL = /bin/bash
 STRIP = strip
 VERSION = 1.1.0
@@ -633,15 +633,15 @@ abs_top_builddir = /root/NTRUEncrypt
 abs_top_srcdir = /root/NTRUEncrypt
 ac_ct_AR = ar
 ac_ct_CC = gcc
-ac_ct_DUMPBIN = 
+ac_ct_DUMPBIN =
 am__include = include
 am__leading_dot = .
-am__quote = 
+am__quote =
 am__tar = $${TAR-tar} chof - "$$tardir"
 am__untar = $${TAR-tar} xf -
 bindir = ${exec_prefix}/bin
 build = x86_64-pc-linux-gnu
-build_alias = 
+build_alias =
 build_cpu = x86_64
 build_os = linux-gnu
 build_vendor = pc
@@ -652,7 +652,7 @@ docdir = ${datarootdir}/doc/${PACKAGE_TARNAME}
 dvidir = ${docdir}
 exec_prefix = ${prefix}
 host = x86_64-pc-linux-gnu
-host_alias = 
+host_alias =
 host_cpu = x86_64
 host_os = linux-gnu
 host_vendor = pc
@@ -676,16 +676,16 @@ sbindir = ${exec_prefix}/sbin
 sharedstatedir = ${prefix}/com
 srcdir = .
 sysconfdir = ${prefix}/etc
-target_alias = 
-top_build_prefix = 
+target_alias =
+top_build_prefix =
 top_builddir = .
 top_srcdir = .
 AUTOMAKE_OPTIONS = foreign 1.9 subdir-objects
 ACLOCAL_AMFLAGS = -I m4
 AM_CFLAGS = -I$(top_srcdir)/include -Wall -Wshadow
-TEST_CFLAGS = 
+TEST_CFLAGS =
 #TEST_CFLAGS = -fno-inline -fprofile-arcs -ftest-coverage
-TEST_LFLAGS = 
+TEST_LFLAGS =
 #TEST_LFLAGS = -lgcov -coverage
 
 # Set conditionally below
@@ -758,8 +758,8 @@ bin_bench_LDADD = \
 
 
 # Sample program
-bin_sample_NTRUEncrypt_SOURCES = sample/sample_NTRUEncrypt.c
-bin_sample_NTRUEncrypt_LDADD = libntruencrypt.la
+# bin_sample_NTRUEncrypt_SOURCES = sample/sample_NTRUEncrypt.c
+# bin_sample_NTRUEncrypt_LDADD = libntruencrypt.la
 
 # Sanity test for when CHECK package is not available
 bin_sanity_SOURCES = test/sanity.c
@@ -770,11 +770,11 @@ bin_sanity_LDADD = \
 
 # Tests using only the public API
 bin_check_public_SOURCES = test/check_public.c
-bin_check_public_CFLAGS = $(AM_CFLAGS) 
+bin_check_public_CFLAGS = $(AM_CFLAGS)
 bin_check_public_LDADD = \
 	$(top_builddir)/libntruencrypt.la \
 	$(top_builddir)/libntrutests.la \
-	
+
 
 
 # Tests requiring access to internals
@@ -784,11 +784,11 @@ bin_check_internal_SOURCES = test/check_internal.c \
 	test/check_internal_sha.c \
 	test/check_internal_mgf.c
 
-bin_check_internal_CFLAGS = $(AM_CFLAGS) -I$(top_srcdir)/src 
+bin_check_internal_CFLAGS = $(AM_CFLAGS) -I$(top_srcdir)/src
 bin_check_internal_LDADD = \
 	$(top_builddir)/libntruencrypt_check.la \
 	$(top_builddir)/libntrutests.la \
-	
+
 
 COVER_DIR = ./coverage
 all: config.h
@@ -837,7 +837,7 @@ config.h: stamp-h1
 stamp-h1: $(srcdir)/config.h.in $(top_builddir)/config.status
 	@rm -f stamp-h1
 	cd $(top_builddir) && $(SHELL) ./config.status config.h
-$(srcdir)/config.h.in:  $(am__configure_deps) 
+$(srcdir)/config.h.in:  $(am__configure_deps)
 	($(am__cd) $(top_srcdir) && $(AUTOHEADER))
 	rm -f stamp-h1
 	touch $@
@@ -942,7 +942,7 @@ src/libntruencrypt_la-ntru_crypto_ntru_mult_indices.lo:  \
 src/libntruencrypt_la-ntru_crypto_ntru_mult_coeffs_karat.lo:  \
 	src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
 
-libntruencrypt.la: $(libntruencrypt_la_OBJECTS) $(libntruencrypt_la_DEPENDENCIES) $(EXTRA_libntruencrypt_la_DEPENDENCIES) 
+libntruencrypt.la: $(libntruencrypt_la_OBJECTS) $(libntruencrypt_la_DEPENDENCIES) $(EXTRA_libntruencrypt_la_DEPENDENCIES)
 	$(AM_V_CCLD)$(libntruencrypt_la_LINK) -rpath $(libdir) $(libntruencrypt_la_OBJECTS) $(libntruencrypt_la_LIBADD) $(LIBS)
 src/libntruencrypt_check_la-ntru_crypto_drbg.lo: src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
@@ -979,7 +979,7 @@ src/libntruencrypt_check_la-ntru_crypto_ntru_mult_indices.lo:  \
 src/libntruencrypt_check_la-ntru_crypto_ntru_mult_coeffs_karat.lo:  \
 	src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
 
-libntruencrypt_check.la: $(libntruencrypt_check_la_OBJECTS) $(libntruencrypt_check_la_DEPENDENCIES) $(EXTRA_libntruencrypt_check_la_DEPENDENCIES) 
+libntruencrypt_check.la: $(libntruencrypt_check_la_OBJECTS) $(libntruencrypt_check_la_DEPENDENCIES) $(EXTRA_libntruencrypt_check_la_DEPENDENCIES)
 	$(AM_V_CCLD)$(libntruencrypt_check_la_LINK) $(am_libntruencrypt_check_la_rpath) $(libntruencrypt_check_la_OBJECTS) $(libntruencrypt_check_la_LIBADD) $(LIBS)
 test/$(am__dirstamp):
 	@$(MKDIR_P) test
@@ -992,7 +992,7 @@ test/test_common.lo: test/$(am__dirstamp) \
 test/check_common.lo: test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
 
-libntrutests.la: $(libntrutests_la_OBJECTS) $(libntrutests_la_DEPENDENCIES) $(EXTRA_libntrutests_la_DEPENDENCIES) 
+libntrutests.la: $(libntrutests_la_OBJECTS) $(libntrutests_la_DEPENDENCIES) $(EXTRA_libntrutests_la_DEPENDENCIES)
 	$(AM_V_CCLD)$(LINK)  $(libntrutests_la_OBJECTS) $(libntrutests_la_LIBADD) $(LIBS)
 
 clean-checkPROGRAMS:
@@ -1047,12 +1047,12 @@ sample/$(am__dirstamp):
 sample/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) sample/$(DEPDIR)
 	@: > sample/$(DEPDIR)/$(am__dirstamp)
-sample/sample_NTRUEncrypt.$(OBJEXT): sample/$(am__dirstamp) \
-	sample/$(DEPDIR)/$(am__dirstamp)
+# sample/sample_NTRUEncrypt.$(OBJEXT): sample/$(am__dirstamp) \
+# 	sample/$(DEPDIR)/$(am__dirstamp)
 
-bin/sample_NTRUEncrypt$(EXEEXT): $(bin_sample_NTRUEncrypt_OBJECTS) $(bin_sample_NTRUEncrypt_DEPENDENCIES) $(EXTRA_bin_sample_NTRUEncrypt_DEPENDENCIES) bin/$(am__dirstamp)
-	@rm -f bin/sample_NTRUEncrypt$(EXEEXT)
-	$(AM_V_CCLD)$(LINK) $(bin_sample_NTRUEncrypt_OBJECTS) $(bin_sample_NTRUEncrypt_LDADD) $(LIBS)
+# bin/sample_NTRUEncrypt$(EXEEXT): $(bin_sample_NTRUEncrypt_OBJECTS) $(bin_sample_NTRUEncrypt_DEPENDENCIES) $(EXTRA_bin_sample_NTRUEncrypt_DEPENDENCIES) bin/$(am__dirstamp)
+# 	@rm -f bin/sample_NTRUEncrypt$(EXEEXT)
+# 	$(AM_V_CCLD)$(LINK) $(bin_sample_NTRUEncrypt_OBJECTS) $(bin_sample_NTRUEncrypt_LDADD) $(LIBS)
 test/sanity.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
 
@@ -1071,7 +1071,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-include sample/$(DEPDIR)/sample_NTRUEncrypt.Po
+# include sample/$(DEPDIR)/sample_NTRUEncrypt.Po
 include src/$(DEPDIR)/libntruencrypt_check_la-ntru_crypto_drbg.Plo
 include src/$(DEPDIR)/libntruencrypt_check_la-ntru_crypto_hash.Plo
 include src/$(DEPDIR)/libntruencrypt_check_la-ntru_crypto_hmac.Plo
